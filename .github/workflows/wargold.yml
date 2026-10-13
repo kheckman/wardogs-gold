@@ -5,10 +5,14 @@ on:
     - cron: '7,37 * * * *'   # every 30 minutes; the script posts once per UTC day
   workflow_dispatch:          # adds a "Run workflow" button
     inputs:
-      test:
-        description: 'Test only: fetch the price but post nothing'
-        type: boolean
-        default: true
+      action:
+        description: 'What to do'
+        type: choice
+        options:
+          - test (post nothing)
+          - force post now
+          - normal (post only if not posted today)
+        default: test (post nothing)
 
 permissions:
   contents: write             # lets the run save state.json back to the repo
@@ -30,7 +34,11 @@ jobs:
           WEBHOOK_URLS: ${{ secrets.WEBHOOK_URLS }}
           WARGOLD_CONFIG: ${{ secrets.WARGOLD_CONFIG }}
         run: |
-          if ('${{ inputs.test }}' -eq 'true') { ./wargold.ps1 -Test } else { ./wargold.ps1 }
+          switch -Wildcard ('${{ inputs.action }}') {
+            'test*'  { ./wargold.ps1 -Test }
+            'force*' { ./wargold.ps1 -Force }
+            default  { ./wargold.ps1 }      # scheduled runs land here
+          }
 
       - name: Save state
         if: always()
