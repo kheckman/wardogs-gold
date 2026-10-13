@@ -1,7 +1,17 @@
-﻿{
-    "date":  "2026-10-13",
-    "price":  229361,
-    "message_id":  "1559560695656226910",
-    "prev_price":  null,
-    "posted_at":  "2026-10-13T13:37:23.7051160Z"
+{
+  "price": 229361,
+  "prev_price": null,
+  "hooks": {
+    "1559577010190286858": {
+      "date": "2026-10-13",
+      "message_id": "1559578666478993472"
+    }
+  },
+  "posted_at": "2026-10-13T14:48:46.7996018Z",
+  "sources": [
+    "WardogsHub",
+    "Wardogstats",
+    "MetaForge"
+  ],
+  "date": "2026-10-13"
 }
