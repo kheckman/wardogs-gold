@@ -1,0 +1,44 @@
+name: Wardogs Gold to Discord
+
+on:
+  schedule:
+    - cron: '7,37 * * * *'   # every 30 minutes; the script posts once per UTC day
+  workflow_dispatch:          # adds a "Run workflow" button
+    inputs:
+      test:
+        description: 'Test only: fetch the price but post nothing'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write             # lets the run save state.json back to the repo
+
+concurrency:
+  group: wargold
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch price and post to Discord
+        shell: pwsh
+        env:
+          WEBHOOK_URLS: ${{ secrets.WEBHOOK_URLS }}
+          WARGOLD_CONFIG: ${{ secrets.WARGOLD_CONFIG }}
+        run: |
+          if ('${{ inputs.test }}' -eq 'true') { ./wargold.ps1 -Test } else { ./wargold.ps1 }
+
+      - name: Save state
+        if: always()
+        run: |
+          if [ -n "$(git status --porcelain state.json)" ]; then
+            git config user.name  "wargold-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add state.json
+            git commit -m "Update gold price state"
+            git push
+          fi
