@@ -9,12 +9,12 @@
       "date": "2026-11-06"
     }
   },
-  "price": 612380,
-  "prev_price": 641920,
-  "posted_at": "2026-11-06T09:46:23.8697107Z",
+  "date": "2026-11-06",
   "sources": [
     "Wardogstats",
     "MetaForge"
   ],
-  "date": "2026-11-06"
+  "posted_at": "2026-11-06T17:23:45.8027326Z",
+  "price": 612380,
+  "prev_price": 641920
 }
