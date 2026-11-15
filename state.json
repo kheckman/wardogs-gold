@@ -1,10 +1,4 @@
 {
-  "price": 896944,
-  "sources": [
-    "Wardogstats",
-    "MetaForge"
-  ],
-  "date": "2026-11-15",
   "hooks": {
     "1559560353636155523": {
       "message_id": "1565893039145230458",
@@ -15,6 +9,12 @@
       "date": "2026-11-15"
     }
   },
-  "posted_at": "2026-11-15T07:05:26.8768354Z",
-  "prev_price": 896944
+  "price": 896944,
+  "date": "2026-11-15",
+  "prev_price": 896944,
+  "posted_at": "2026-11-15T14:41:44.9833488Z",
+  "sources": [
+    "Wardogstats",
+    "MetaForge"
+  ]
 }
